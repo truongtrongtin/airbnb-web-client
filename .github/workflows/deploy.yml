@@ -34,7 +34,7 @@ jobs:
           --entry-point=app
           --runtime=nodejs20
           --memory=128MiB
-          --region=asia-southeast1
+          --region=us-west1
           --source=.
           --allow-unauthenticated
           --set-env-vars NODE_ENV=production
