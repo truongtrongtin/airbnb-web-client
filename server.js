@@ -13,7 +13,7 @@ let vite =
     ? undefined
     : await unstable_createViteServer();
 
-const app = express();
+export const app = express();
 
 // handle asset requests
 if (vite) {
@@ -36,5 +36,12 @@ app.all(
   })
 );
 
-const port = 3000;
-app.listen(port, () => console.log("http://localhost:" + port));
+// https://cloud.google.com/functions/docs/configuring/env-var#newer_runtimes
+const isOnGoogleCloud = Boolean(
+  process.env.K_SERVICE && process.env.K_REVISION
+);
+
+if (!isOnGoogleCloud) {
+  const port = Number(process.env.PORT) || 3000;
+  app.listen(port, () => console.log("http://localhost:" + port));
+}
